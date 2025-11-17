@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +10,7 @@ public class BamsongiController : MonoBehaviour
     void Start() 
     {
         Application.targetFrameRate = 60;
-        Shoot(new Vector3(0, upForce, 2000));
+        //Shoot(new Vector3(0, upForce, 2000));
     }
 
 
@@ -25,4 +25,29 @@ public class BamsongiController : MonoBehaviour
         GetComponentsInChildren<MeshRenderer>()[0].enabled = false;
         Destroy(gameObject, 1);
     }
+}
+*/
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BamsongiController : MonoBehaviour 
+{
+    public void Shoot(Vector3 dir) 
+    {
+        GetComponent<Rigidbody>().AddForce(dir);
+    }
+    private void OnCollisionEnter(Collision other)
+    {
+        GetComponent<Rigidbody>().isKinematic = true;
+        GetComponent<ParticleSystem>().Play();
+    }
+
+    void Start()
+    {
+        Application.targetFrameRate = 60;
+        Shoot(new Vector3(0, 200, 2000));
+    }
+
+
 }
